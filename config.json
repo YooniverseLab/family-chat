@@ -1,0 +1,7 @@
+{
+  "token": "REPLACE_WITH_TOKEN_IN_ENV",
+  "prefix": "!",
+  "presenceInterval": 7000,
+  "presenceContents": ["조이하우스 가족 봇", "도움말은 !help"],
+  "owners": []
+}
