@@ -194,19 +194,26 @@ class Chatgpt {
     return result.trim();
   }
   async sendSplitMessage(channel, text) {
-    if (text.length <= 2000) {
-      return await channel.sendMessage(text);
-    }
+    try {
+      if (text.length <= 2000) {
+        return await channel.sendMessage(text);
+      }
 
-    const chunks = [];
-    let current = text;
-    while (current.length > 0) {
-      chunks.push(current.substring(0, 1900));
-      current = current.substring(1900);
-    }
+      const chunks = [];
+      let current = text;
+      while (current.length > 0) {
+        // Revolt limits are 2000, 1900 is a safe margin
+        chunks.push(current.substring(0, 1900));
+        current = current.substring(1900);
+      }
 
-    for (const chunk of chunks) {
-      await channel.sendMessage(chunk);
+      for (const chunk of chunks) {
+        await channel.sendMessage(chunk);
+      }
+    } catch (error) {
+      console.error(" [Error_Handling] :: Failed to send split message");
+      console.error(error);
+      await channel.sendMessage("죄송해요, 메시지가 너무 길어서 보내는 중에 오류가 발생했어요. ㅠㅠ");
     }
   }
 }

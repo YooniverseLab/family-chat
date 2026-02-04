@@ -12,6 +12,6 @@ module.exports = {
   run: async function (message, data) {
     const prompt = data.get("prompt").value;
     const answer = (await ask(prompt)).replaceAll("<code>", "```").replaceAll("</code>", "```") //prompt GPT-3
-    this.sendSplitMessage(message.channel, answer);
+    await this.sendSplitMessage(message.channel, answer);
   }
 }
